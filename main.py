@@ -1,13 +1,10 @@
-
 import time
 import json
 import requests
 from tqdm import tqdm
 import pandas as pd
 from collections import Counter
-
 from wordcloud import WordCloud
-
 
 def dump_json(obj, filename):
     """Функция сохранения JSON-файла на диск"""
@@ -15,7 +12,7 @@ def dump_json(obj, filename):
         json.dump(obj, f, ensure_ascii=False, indent=4)
 
 
-def get_vacancies(text="python",experience=None, employment=None, schedule=None):
+def get_vacancies(text="python", experience=None, employment=None, schedule=None):
     """Функция для скачивания данных по API HeadHunter"""
     params = {
         "per_page": 100,
@@ -58,7 +55,6 @@ def get_full_descriptions(vacancies):
         print(description.json())
         time.sleep(0.2)
 
-
     dump_json(vacancies_full, 'vacancies_full.json')
 
     return vacancies_full
@@ -75,9 +71,8 @@ def load_from_google_drive(file_id, filename):
 
 vacancies = get_vacancies()
 print('Загружено', len(vacancies), 'вакансий')
-#
 # vacancies_full = get_full_descriptions(vacancies)  # Выполняется ≈20 мин
-vacancies_full = load_from_google_drive('1d2NfxfM2n48m5WS6oCCc3rcQ4hdnTQ1v','vacancies_full.json')
+vacancies_full = load_from_google_drive('1d2NfxfM2n48m5WS6oCCc3rcQ4hdnTQ1v', 'vacancies_full.json')
 
 all_skills = []
 for vacancy in vacancies_full:
